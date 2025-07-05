@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to flavio.gay!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    
+    <!-- 1. SCRIPT FOR THE SPLINE VIEWER (no changes here) -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.22/build/spline-viewer.js"></script>
+
+    <style>
+        :root {
+            --primary-pink: #FF69B4;
+            --light-pink: #FFB6C1;
+            --glow-color: rgba(255, 20, 147, 0.7);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            cursor: pointer;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* RE-ADDED: The Waving LGBT Flag is back as the background! */
+            background: linear-gradient(125deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF);
+            background-size: 400% 400%;
+            animation: waveAnimation 15s ease infinite;
+        }
+
+        @keyframes waveAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes textGradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Main Content Styling --- */
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        /* --- NEW: Styling for the smaller, integrated Spline model --- */
+        spline-viewer {
+            width: 100%;
+            height: 450px; /* Control the height of the model here */
+            margin: 0 auto 1.5rem auto; /* Center it and add space below */
+            outline: none; /* Removes the focus outline */
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-pink);
+            box-shadow: 0 0 25px 5px var(--glow-color);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(125deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGradientAnimation 8s ease infinite;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--light-pink);
+            margin-top: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sparkle effect is unchanged */
+        .sparkle {
+            position: absolute;
+            background: var(--primary-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: sparkle-burst 0.6s forwards;
+            box-shadow: 0 0 10px 2px var(--glow-color);
+        }
+        
+        @keyframes sparkle-burst {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="content-wrapper">
+        <img src="https://avatars.githubusercontent.com/u/67586641?v=4" alt="Flavio's Avatar" class="avatar">
+        <h1>flavio.gay</h1>
+        <p>A fabulous corner of the internet.</p>
+        <spline-viewer 
+            url="https://prod.spline.design/yxgBKYwU1VtzzrJG/scene.splinecode" 
+            background="transparent"
+            logo="false">
+        </spline-viewer>
+    </main>
+
+    <script>
+        // --- Interactive Sparkle on Click (unchanged) ---
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 7; i++) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            document.body.appendChild(sparkle);
+            const size = Math.random() * 10 + 5;
+            const angle = Math.random() * 360;
+            const distance = Math.random() * 50 + 20;
+            const sparkleX = x + distance * Math.cos(angle * Math.PI / 180);
+            const sparkleY = y + distance * Math.sin(angle * Math.PI / 180);
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            requestAnimationFrame(() => {
+                sparkle.style.transition = 'left 0.6s ease-out, top 0.6s ease-out';
+                sparkle.style.left = `${sparkleX}px`;
+                sparkle.style.top = `${sparkleY}px`;
+            });
+            setTimeout(() => {
+                sparkle.remove();
+            }, 600);
+        }
+    </script>
+
+</body>
+</html>
